@@ -1,33 +1,43 @@
 class CuentaBancaria {
-  titular
-  #saldoInicial
+  #titular;
+  #saldoInicial;
 
   constructor(titular, saldoInicial) {
-    this.titular = titular;
+    this.#titular = titular;
     if (saldoInicial < 0) {
-      throw new Error('No se puede crear con saldo negativo')
+      throw new Error("No se puede crear con saldo negativo");
     }
     this.#saldoInicial = saldoInicial;
   }
 
   set titular(nombre) {
-    return this.titular = titular;
+    this.#titular = nombre;
   }
 
-  set saldo(monto) {
+  get titular() {
+    return this.#titular;
+  }
+
+  depositar(monto) {
     if (monto > 0) {
-      return this.#saldoInicial += monto
+      this.#saldoInicial += monto;
+      return this.#saldoInicial;
     }
-
-    return console.log('Saldo Insuficiente')
+    console.log("El monto a depositar debe ser positivo");
   }
 
+  extraer(monto) {
+    if (monto <= this.#saldoInicial) {
+      this.#saldoInicial -= monto;
+      return this.#saldoInicial;
+    }
+    console.log("Fondos insuficientes");
+  }
 
-  get consultarSaldo() {
+  consultarSaldo() {
+    console.log(`Saldo actual: ${this.#saldoInicial}`);
     return this.#saldoInicial;
   }
-
 }
 
-const miBanco = new CuentaBancaria('Facu', -200)
-
+const miBanco = new CuentaBancaria("Facu", 1000);

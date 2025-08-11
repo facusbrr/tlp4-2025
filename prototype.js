@@ -1,42 +1,38 @@
-function CuentaBancaria() {
-  titular: String
-  saldoInicial: Number
-};
+function CuentaBancaria(titular, saldoInicial) {
+  if (typeof titular !== "string") {
+    throw new Error("El titular debe ser un nombre");
+  }
+
+  if (typeof saldoInicial !== "number") {
+    throw new Error("El saldo inicial debe ser número.");
+  }
+
+  this.titular = titular;
+  this.saldoInicial = saldoInicial;
+}
 
 const cuentaPrototipo = {
-  saldoInicial: 0,
-
   depositar(monto) {
-    this.saldoInicial += monto
+    this.saldoInicial += monto;
     return this.saldoInicial;
   },
 
   extraer(monto) {
     if (monto > 0) {
-      return this.saldoInicial - monto
+      return this.saldoInicial - monto;
     }
-    return console.log('Fondo insuficiente')
+    return console.log("Fondo insuficiente");
   },
 
   consultarSaldo() {
     return this.saldoInicial;
-  }
-}
+  },
+};
 
-Object.assign(CuentaBancaria.prototype, cuentaPrototipo)
+Object.assign(CuentaBancaria.prototype, cuentaPrototipo);
 
 CuentaBancaria.prototype.depositar = cuentaPrototipo.depositar;
-miBanco = new CuentaBancaria()
 
+miBanco = new CuentaBancaria("Facundo", 200);
 miBanco.depositar(200);
-console.log(miBanco.consultarSaldo())
-
-
-const conca = {
-  concatenarPalabra(palabra) {
-    const array = []
-    array.pop = palabra
-  }
-}
-
-Object.assign(String.prototype)
+console.log(miBanco.consultarSaldo());
