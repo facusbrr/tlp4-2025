@@ -18,21 +18,24 @@ const cuentaPrototipo = {
   },
 
   extraer(monto) {
-    if (monto > 0) {
-      return this.saldoInicial - monto;
+    if (this.saldoInicial >= monto) {
+      return (this.saldoInicial -= monto);
     }
-    return console.log("Fondo insuficiente");
+    return console.log("Fondo insuficientes para la extraccion");
   },
 
   consultarSaldo() {
-    return this.saldoInicial;
+    console.log(`Saldo: ${this.saldoInicial}`);
   },
 };
 
 Object.assign(CuentaBancaria.prototype, cuentaPrototipo);
 
 CuentaBancaria.prototype.depositar = cuentaPrototipo.depositar;
+CuentaBancaria.prototype.extraer = cuentaPrototipo.extraer;
+CuentaBancaria.prototype.consultarSaldo = cuentaPrototipo.consultarSaldo;
 
-miBanco = new CuentaBancaria("Facundo", 200);
+const miBanco = new CuentaBancaria("Facundo", 200);
 miBanco.depositar(200);
-console.log(miBanco.consultarSaldo());
+miBanco.extraer(500);
+miBanco.consultarSaldo();
